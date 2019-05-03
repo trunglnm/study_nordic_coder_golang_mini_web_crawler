@@ -6,4 +6,4 @@ This is pre-work exercise for Golang course at Nordic Coder School
 + output to csv file
 
 *** How to run ***
-cmd : go run main.go https://news.zing.vn
++ cmd : go run main.go https://news.zing.vn
