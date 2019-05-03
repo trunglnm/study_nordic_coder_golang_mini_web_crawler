@@ -1,5 +1,24 @@
 package main
 
+/*** Prework : mini web crawler
+
+* Requirements *
+1. craw and parse URL (as parameter) -> url / title / author / date (loop for other URLs and again if linked & existed)
+2. output to CSV file
+
+*/
+
+//========================================================
+
+/*** Status
+A. Bugs :
++ can not create csv file
+
+B. Todos :
++ detect when crawler end and send signal to writer to close
+
+*/
+
 import (
 	"encoding/csv"
 	"flag"
@@ -13,11 +32,6 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-/*
-Prework : mini web crawler
-1. craw and parse URL (as parameter) -> url / title / author / date (loop for other URLs and again if linked & existed)
-2. output to CSV file
-*/
 type Result struct {
 	URL    string
 	Title  string
@@ -91,7 +105,7 @@ func (w *CsvWriter) flush() {
 
 func enqueue(uri string, inputQueue chan string, outputQueue chan Result) {
 
-	fmt.Println("fetching ... ", uri)
+	//fmt.Println("fetching ... ", uri)
 
 	visited[uri] = true
 
@@ -137,7 +151,8 @@ func parsePage(doc *goquery.Document) Result {
 	doc.Find(".the-article-publish").Each(func(i int, s *goquery.Selection) {
 		result.Date = s.Text()
 	})
-	fmt.Printf("result parse is %+v \n", result)
+
+	fmt.Printf("%+v \n", result)
 
 	return result
 }
